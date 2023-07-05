@@ -6,52 +6,46 @@
 /*   By: ymarcais <ymarcais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:45:17 by ymarcais          #+#    #+#             */
-/*   Updated: 2023/05/22 12:13:24 by ymarcais         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:16:36 by ymarcais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
+int ft_space(char c)
+{
+    return (c >= 9 && c<= 13) || c == 32;
+}
+
 int main(int ac, char **av)
 {
-    char    *str;
-    int     inside = 0;
+    int len = 0;
+    char *str = NULL;
     
     str = av[1];
-    if (ac != 2)
+    if (ac == 2)
     {
-        write(1, "\n", 2);
-            return (0);
-    }
-    while(*str)
-    {
-        if (inside)
+        while(*str && ft_space(*str))
+            str++;
+        while(str[len])
+            len++;
+        while(*str && ft_space(str[len -1]))
         {
-            if (*str == ' ' || *str == '\t' || *str == '\n')
-            {
-                write(1,"   ", 3);
-                inside = 0;
-            }
-            else
-            {
-                write(1, str, 1);
-            }
+            str[len - 1] = '\0';
+            len--;
         }
-        else
+        while(*str)
         {
-            if (*str == ' ' || *str == '\t' || *str == '\n')
+            if (ft_space(*str))
             {
-               str++;
-               continue; 
+                if(!ft_space(*(str + 1)))
+                    write(1, "   ", 3);
             }
-            else
-            {
+            else 
                 write(1, str, 1);
-                inside = 1;
-            }
+            str++;      
         }
-        str++;
     }
-    write(1, "\n", 1);
-    return (0);
+    write(1, "mmm\n", 4);
+    return 0;    
 }
