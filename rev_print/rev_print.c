@@ -1,7 +1,6 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-
+#include<unistd.h>
+#include<stdlib.h>
+#include<stdio.h>
 
 char *rev_print(char *str)
 {
@@ -10,16 +9,19 @@ char *rev_print(char *str)
 
     if(!str)
         return (NULL);
-    while(str[i] != '\0')
+    while(str[i])
         i++;
+    if(i == 0)
+        return NULL;
     mall = malloc(sizeof(char) * (i + 1));
     if (!mall)
         return  (NULL);
     mall[i] = '\0';
     i--;
-    while (i > -1)
+    while (i >= 0)
     {
         mall[j] = str[i];
+        write(1, &mall[j], 1);
         j++;
         i--;
     }
@@ -28,12 +30,11 @@ char *rev_print(char *str)
 
 int main(void)
 {
-    char *reversed = rev_print("toto a la plage");
-    // if (reversed != NULL)
-    // {
-        printf("test = %s\n", reversed);
-        write(1, rev_print("toto a la plage"), 16);
-        // free(reversed);
-    // }
-    // return 0;
+    rev_print("Toto a la plage");
+    write(1,"\n", 1);
+    rev_print("  titi a la montagne");
+    write(1,"\n", 1);
+    rev_print("");
+    write(1,"\n", 1);
+    return (0);
 }

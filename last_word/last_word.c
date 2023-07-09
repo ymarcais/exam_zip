@@ -4,13 +4,13 @@
 int main(int ac, char **av)
 {
     int i = 0;
-    char *str;
+    char *str = NULL;
 
-    str = av[1];
-    if(ac != 2 || str == NULL)
+    if(ac != 2)
     {
         write(1, "\n", 1);
     }
+    str = av[1];
     while(str[i] != '\0')
         i++;
     i--;
