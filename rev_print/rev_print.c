@@ -1,31 +1,30 @@
 #include<unistd.h>
 #include<stdlib.h>
-#include<stdio.h>
 
 char *rev_print(char *str)
 {
-    int     i = 0, j = 0;
-    char    *mall;
+    int len = 0, j = 0;
+    char *rev = NULL;
 
-    if(!str)
-        return (NULL);
-    while(str[i])
-        i++;
-    if(i == 0)
+    if(!*str)
         return NULL;
-    mall = malloc(sizeof(char) * (i + 1));
-    if (!mall)
-        return  (NULL);
-    mall[i] = '\0';
-    i--;
-    while (i >= 0)
+    while(str[len])
+        len++;
+    if (len == 0)
+        return NULL;
+    rev = malloc(sizeof(char) *(len + 1));
+    if(!rev)
+        return NULL;
+    rev[len] = '\0';
+    len--;
+    while(len >= 0)
     {
-        mall[j] = str[i];
-        write(1, &mall[j], 1);
+        rev[j] = str[len];
+        write(1, &str[len], 1);
         j++;
-        i--;
+        len--;
     }
-    return mall;
+    return str;
 }
 
 int main(void)

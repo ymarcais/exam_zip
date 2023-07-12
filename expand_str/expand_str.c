@@ -1,16 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expand_str.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ymarcais <ymarcais@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/22 11:45:17 by ymarcais          #+#    #+#             */
-/*   Updated: 2023/07/05 18:16:36 by ymarcais         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include <unistd.h>
+#include<stdlib.h>
+#include<unistd.h>
 
 int ft_space(char c)
 {
@@ -19,33 +8,38 @@ int ft_space(char c)
 
 int main(int ac, char **av)
 {
+    char *str;
     int len = 0;
-    char *str = NULL;
-    
+
     str = av[1];
-    if (ac == 2)
+    if (ac != 2 || str == NULL)
     {
-        while(*str && ft_space(*str))
-            str++;
-        while(str[len])
-            len++;
-        while(*str && ft_space(str[len -1]))
-        {
-            str[len - 1] = '\0';
-            len--;
-        }
-        while(*str)
-        {
-            if (ft_space(*str))
-            {
-                if(!ft_space(*(str + 1)))
-                    write(1, "   ", 3);
-            }
-            else 
-                write(1, str, 1);
-            str++;      
-        }
+        write(1, "\n", 1);
+        return 0;
     }
-    write(1, "mmm\n", 4);
+    while (*str)
+    {
+        len++;
+        str++;
+    }    
+     str--;
+    while(ft_space(*str))
+    {
+        *str = '\0';
+        str--;
+    }
+    str = av[1];
+    while(ft_space(*str))
+        str++;
+    while(*str)
+    {
+        if(*str && !ft_space(*str))
+            write(1, str, 1);
+        else if (ft_space(*str) && !ft_space(*(str + 1)))
+            write(1, "   ", 3);
+        str++;
+    }
+    write(1, "\n", 1);
     return 0;    
 }
+

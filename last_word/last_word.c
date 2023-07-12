@@ -1,29 +1,34 @@
 #include<unistd.h>
-#include<stdio.h>
+#include<stdlib.h>
+
+int ft_space(char c)
+{
+    return(c >= 9 && c<= 12) || c == 32;
+}
 
 int main(int ac, char **av)
 {
-    int i = 0;
     char *str = NULL;
+    int i = 0;
 
-    if(ac != 2)
+    if (ac != 2)
     {
         write(1, "\n", 1);
+        return 0;
     }
     str = av[1];
-    while(str[i] != '\0')
+    while(str[i])
         i++;
     i--;
-    while(str[i] == ' ' || str[i] == '\n' || str[i] == '\t')
+    while(ft_space(str[i]))
         i--;
-    while(str[i] != ' ' && str[i] != '\n' && str[i] != '\t')
+    while(i >= 0 && !ft_space(str[i]))
         i--;
     i++;
-    while(str[i] != '\0' && (str[i] != ' ' && str[i] != '\n' && str[i] != '\t'))
+    while(str[i] && !ft_space(str[i]))
     {
         write(1, &str[i], 1);
         i++;
     }
-    write(1, "\n", 1);
-    return (0);
+    return 0;
 }

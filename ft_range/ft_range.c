@@ -1,62 +1,38 @@
-#include <stdlib.h>
-#include <stdio.h>
+#include<stdlib.h>
+#include<stdio.h>
 
-int     *ft_range(int start, int end)
+int     *ft_rrange(int start, int end)
 {
-    int *range = NULL;
-    int size, i = 0;
-    
-    if (end > start)
+    int sign = 1;
+    int size = 0, i = 0;
+    int *array = NULL;
+
+    if (start > end)
+        sign = -1;
+    size = sign *(end - start);
+    size++;
+    array = malloc(sizeof(int) * (size));
+    if(!array)
+        return NULL;
+    while(size > i)
     {
-        size = end - start + 1;
-        range = malloc(sizeof(int) * (size + 1));
-        if (!range)
-            return (NULL);
-        while( end >= start)
-        {
-            range[i] = start;
-            start++;
-            i++;
-        }
-        range[size] ='\0';
+        array[i] = start + sign * i;
+        i++;
     }
-    else if (end == start)
-    {
-        range = malloc(sizeof(int) * 2);
-        if (!range)
-            return (NULL);
-        range[0] = start;
-        range[1] = '\0';
-    }
-    else
-    {
-        size = start - end + 1;
-        range = malloc(sizeof(int) * (size + 1));
-        if (!range)
-            return (NULL);
-        while( end <= start)
-        {
-            range[i] = start;
-            start--;
-            i++;
-        }  
-        //range[size] = '\0';
-    }
-    return (range);
+    return array;
 }
 
 int main(void)
 {
-    int *range;
+    int *array = NULL;
     int i = 0;
 
-    range = ft_range(-2, 3);
-    while (i < 6)
+    array = ft_rrange(3, -5);
+    while(i < 9)
     {
-        printf("%d\n", range[i]);
+        printf("%d\n", array[i]);
         i++;
     }
-    return (0);
+    free(array);
+    return 0;
 }
-
-    

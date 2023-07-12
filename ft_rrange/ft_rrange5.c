@@ -4,17 +4,17 @@
 int     *ft_rrange(int start, int end)
 {
     int sign = 1;
-    int size = 0, i = 0;
     int *array = NULL;
+    int i = 0, size = 0;
 
-    if (start > end)
+    if(start > end)
         sign = -1;
     size = sign *(end - start);
     size++;
-    array = malloc(sizeof(int) * (size));
+    array = malloc(sizeof(int) * size);
     if(!array)
         return NULL;
-    while(size > i)
+    while(i <= size)
     {
         array[i] = end - sign * i;
         i++;

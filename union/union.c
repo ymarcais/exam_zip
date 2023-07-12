@@ -1,58 +1,52 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   union.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ymarcais <ymarcais@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 11:23:23 by ymarcais          #+#    #+#             */
-/*   Updated: 2023/05/19 13:40:12 by ymarcais         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include <unistd.h>
-#include <stdio.h>
-
-void ft_write(char *str, int array[])
-{
-    while(*str)
-    {
-        if (array[*str] == 1)
-        {
-            array[*str] = 0;
-            write(1, str, 1);
-        }
-        str++;
-    }
-}
-
-void    array_(char *str1, char *str2)
-{
-    int    array[128] = {0};
-    char    *tmp;
-
-    tmp = str1;    
-    while(*tmp)
-    {
-        array[*tmp] = 1;
-        tmp++;
-    }
-    tmp = str2; 
-    while(*tmp)
-    {
-        array[*tmp] = 1;
-        tmp++;
-    }
-    ft_write(str1, array); 
-    ft_write(str2, array); 
-}
+#include<unistd.h>
+#include<stdio.h>
 
 int main(int ac, char **av)
 {
-    if (ac == 3)
-    {
-        array_(av[1], av[2]);
-    }
-    write(1, "\n", 1);
-    return (0);
+	char *str1 = NULL;
+	char *str2 = NULL;
+	int array[128] = {0};
+	int i = 0;
+
+
+	if(ac != 3)
+	{
+		write(1, "\n", 1);
+		return 0;
+	}
+	str1= av[1];
+	str2= av[2];
+	while(str1[i] != '\0')
+	{
+		array[(int)(str1[i])] = 1;
+		i++;
+	}
+	i = 0;
+	while(str2[i])
+	{
+		array[(int)(str2[i])] = 1;
+		i++;
+	}
+	i = 0;
+	while(str1[i] != '\0')
+	{
+		if(array[(int)(str1[i])] == 1)
+		{
+			array[(int)(str1[i])] = 0;
+			write(1, &str1[i], 1);
+		}	
+		i++;
+	}
+    i = 0;
+	while(str2[i] != '\0')
+	{
+		if(array[(int)(str2[i])] == 1)
+		{
+			array[(int)(str2[i])] = 0;
+			write(1, &str2[i], 1);
+		}	
+		i++;
+	}
+	write(1, "\n", 1);
+	return 0;
 }
